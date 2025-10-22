@@ -2,779 +2,431 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Premium Free Fire ID Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PRO Free Fire ID Store</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     :root {
-      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-      --gold-gradient: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
-      --dark-gradient: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
-      --card-gradient: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+      --bg-gradient: linear-gradient(135deg,#151a30 0%,#232a50 42%,#543af5 100%);
+      --card-glass: rgba(255,255,255,0.12);
+      --card-glass-inner: rgba(255,255,255,0.17);
+      --accent: #543af5;
+      --secondary: #97eaff;
+      --gold: #f8cb5d;
+      --pro-glow: #f8cb5d80;
+      --shadow3d: 0 40px 80px #543af544, 0 2px 10px #2227;
     }
-
     body {
-      font-family: 'Inter', sans-serif;
-      background: #0a0a0a;
-      color: white;
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      font-family:'Montserrat',sans-serif;
+      color: #eaf6ff;
       overflow-x: hidden;
     }
-
-    .bg-animated {
-      background: linear-gradient(-45deg, #0f0f0f, #1a1a1a, #0f0f0f, #2d2d2d);
-      background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .glass-effect {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    }
-
-    .neon-glow {
-      box-shadow: 0 0 20px rgba(102, 126, 234, 0.5), 0 0 60px rgba(102, 126, 234, 0.3);
-    }
-
-    .premium-card {
-      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 20px;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .premium-card::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
-      border-radius: 22px;
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .premium-card:hover::before {
-      opacity: 1;
-    }
-
-    .premium-card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    }
-
-    .floating-elements {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .floating-elements::before,
-    .floating-elements::after {
-      content: '';
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
-      border-radius: 50%;
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .floating-elements::before {
-      top: 20%;
-      left: 10%;
-      animation-delay: 0s;
-    }
-
-    .floating-elements::after {
-      bottom: 20%;
-      right: 10%;
-      animation-delay: 3s;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
-    }
-
-    .premium-btn {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border: none;
-      padding: 12px 32px;
-      border-radius: 50px;
-      color: white;
-      font-weight: 600;
-      font-size: 14px;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .premium-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .premium-btn:hover::before {
-      left: 100%;
-    }
-
-    .premium-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-    }
-
-    .modal-backdrop {
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(10px);
-    }
-
-    .modal-content {
-      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-      backdrop-filter: blur(30px);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 25px;
-      animation: modalSlideIn 0.3s ease-out;
-    }
-
-    @keyframes modalSlideIn {
-      from {
-        opacity: 0;
-        transform: translateY(-50px) scale(0.9);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    .price-tag {
-      background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
-      color: #000;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-weight: 700;
-      font-size: 18px;
-      text-shadow: none;
-      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-    }
-
-    .level-badge {
-      background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-      color: white;
-      padding: 4px 12px;
-      border-radius: 15px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .kd-badge {
-      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
-      color: white;
-      padding: 4px 12px;
-      border-radius: 15px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .skins-badge {
-      background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
-      color: white;
-      padding: 4px 12px;
-      border-radius: 15px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .section-title {
-      font-family: 'Orbitron', monospace;
-      font-size: 3rem;
-      font-weight: 900;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
+    h1,h2,h3 { font-family:'Orbitron',sans-serif;}
     .hero-title {
-      font-family: 'Orbitron', monospace;
-      font-size: 4rem;
-      font-weight: 900;
-      background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-align: center;
-      text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+      font-size:3rem;
+      font-weight:900;
+      letter-spacing:3px;
+      background:linear-gradient(90deg,#97eaff 15%,#543af5 58%,#f8cb5d 92%);
+      background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      text-shadow:0 0 38px #543af5cc;
     }
-
+    /* Floating Pro Shapes */
+    .floating-shape {
+      position: absolute;
+      z-index: 1;
+      animation: floatShape 6s ease-in-out infinite;
+      pointer-events:none;
+      border-radius:20px;
+      filter: blur(1px);
+      opacity: 0.4;
+      background: linear-gradient(141deg,#543af5aa,#97eaffbb 70%);
+    }
+    .floating-shape1 { width:110px;height:40px;left:4%;top:16%;animation-delay:0s;}
+    .floating-shape2 { width:60px;height:80px;right:8%;top:7%;animation-delay:2s;}
+    .floating-shape3 { width:120px;height:55px;left:6%;bottom:6%;animation-delay:4s;}
+    .floating-shape4 { width:78px;height:70px;right:9%;bottom:13%;animation-delay:1s;}
+    @keyframes floatShape {
+      0%,100%{transform:translateY(0);}
+      50%{transform:translateY(-22px);}
+    }
+    /* 3D Animated Product Card */
+    .pro-card {
+      position:relative;
+      background:var(--card-glass-inner);
+      border-radius:22px;
+      box-shadow: var(--shadow3d), 0 0 45px #543af563;
+      backdrop-filter: blur(12px);
+      transition:
+        box-shadow 0.32s,
+        transform 0.31s cubic-bezier(.28,.93,.67,1.45);
+      padding:2rem 1.2rem 1.6rem 1.2rem;
+      overflow:visible;
+      border:1.5px solid #5a52c522;
+      perspective:1800px;
+      will-change: transform;
+    }
+    .pro-card:hover {
+      transform:scale(1.06) rotateY(4deg) rotateX(5deg);
+      box-shadow:0 54px 110px #543af5, 0 8px 56px #ffd05369;
+    }
+    .pro-card .glow-streak {
+      position:absolute;
+      left:-20px;right:-20px;top:-20px;height:16px;
+      background:linear-gradient(90deg,#ffe399 0%,#97eaff 80%,#543af5 100%);
+      border-radius:16px;
+      box-shadow:0 0 36px 8px #97eaff8c;
+      opacity:0.1;
+      z-index:0;
+    }
+    .pro-card:hover .glow-streak {
+      opacity:0.35;
+    }
+    .pro-price {
+      background: linear-gradient(90deg,#f8cb5d 20%,#543af5 80%);
+      color: #111; font-family:'Orbitron',sans-serif;font-weight:900;font-size:1.25rem;
+      border-radius:99px;padding:0.5rem 1.3rem;margin:0.4rem 0 0.7rem 0;
+      box-shadow:0 4px 12px #f8cb5d99;
+      position:relative;z-index:2;
+    }
+    .pro-badge {padding:0.2rem 0.8rem;border-radius:999px;margin:0 0.2rem;font-size:0.9rem;font-weight:700;}
+    .pro-lvl {background:linear-gradient(90deg,#543af5,#97eaff);color:#fff;}
+    .pro-kd {background:linear-gradient(90deg,#f8cb5d,#ef5350);color:#fff;}
+    .pro-skins {background:linear-gradient(90deg,#42ffc5,#543af5);color:#232a50;}
+    .pro-btn {
+      background:linear-gradient(90deg,#543af5,#97eaff 60%);
+      color:#fff;padding:0.7rem 2.3rem;
+      border-radius:999px;border:none;
+      box-shadow:0 7px 32px #543af5bb,0 2px 8px #ffd05360;
+      font-weight:750;letter-spacing:1.2px;
+      margin-top:1.1rem;cursor:pointer;
+      font-family:'Orbitron',sans-serif;
+      font-size:1.07rem;
+      transition:.2s cubic-bezier(.43,.45,.45,1.43);
+      will-change:transform;
+      outline:none;
+    }
+    .pro-btn:hover {
+      filter:brightness(1.34) drop-shadow(0 0 22px #97eaff);
+      transform: scale(1.09) translateY(-2px);
+    }
+    /* Modal Overlay / Gallery / Viewer: see previous code for styling, only accent colors changed here */
+    .modal-backdrop,.image-viewer-backdrop {
+      position:fixed;inset:0;
+      background:rgba(21,26,48,0.96);
+      backdrop-filter:blur(35px);
+      z-index:999;
+      opacity:0;visibility:hidden;transition:opacity 0.3s;
+      display:flex;justify-content:center;align-items:center;
+    }
+    .modal-backdrop.active,.image-viewer-backdrop.active {opacity:1;visibility:visible;}
+    .modal-content {
+      background:var(--card-glass);
+      box-shadow:0 32px 100px var(--accent);
+      padding:2rem 1rem;
+      border-radius:26px;max-width:600px;width:94vw;max-height:83vh;
+      overflow-y:auto;position:relative;
+    }
+    .modal-content h2 {color:var(--accent);margin-bottom:10px;font-family:'Orbitron',sans-serif;}
+    .close-btn {position:absolute;top:1rem;right:1.5rem;font-size:2rem;color:var(--secondary);border:none;background:none;cursor:pointer;}
+    .close-btn:hover {color:var(--gold);}
     .image-gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 10px;
-      margin-top: 20px;
+      display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.2rem;
     }
-
     .gallery-img {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 2px solid rgba(255, 255, 255, 0.1);
-      transition: all 0.3s ease;
+      width:100%;height:90px;object-fit:cover;border-radius:0.9rem;
+      box-shadow:0 3px 12px #543af577;
+      cursor:zoom-in;transition:transform 0.3s;
     }
-
-    .gallery-img:hover {
-      transform: scale(1.05);
-      border-color: rgba(102, 126, 234, 0.5);
-      cursor: pointer;
+    .gallery-img:hover {transform:scale(1.13);}
+    /* Image Viewer */
+    #imageViewer.image-viewer-backdrop {z-index:1000;}
+    #viewerImage {max-width:96vw;max-height:90vh;border-radius:1.3rem;box-shadow:0 40px 120px #232a5044;}
+    .image-viewer-close,.image-viewer-nav {
+      position: absolute; background: var(--accent);
+      border-radius: 50%; border: none; color: #fff;
+      font-size: 2rem; width: 50px; height: 50px;
+      cursor: pointer; display: flex; justify-content: center;align-items: center;opacity: 0.8;
+      transition: opacity 0.3s;
     }
-
-    .image-viewer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(10px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .image-viewer.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .image-viewer-content {
-      position: relative;
-      max-width: 90%;
-      max-height: 90%;
-      animation: imageZoomIn 0.3s ease-out;
-    }
-
-    .image-viewer-content img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .image-viewer-close {
-      position: absolute;
-      top: -40px;
-      right: -10px;
-      background: rgba(255, 255, 255, 0.2);
-      border: none;
-      color: white;
-      font-size: 24px;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(10px);
-    }
-
-    .image-viewer-close:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: scale(1.1);
-    }
-
-    .image-viewer-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.2);
-      border: none;
-      color: white;
-      font-size: 24px;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(10px);
-    }
-
-    .image-viewer-nav:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: translateY(-50%) scale(1.1);
-    }
-
-    .image-viewer-prev {
-      left: 20px;
-    }
-
-    .image-viewer-next {
-      right: 20px;
-    }
-
-    .image-viewer-counter {
-      position: absolute;
-      bottom: -50px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 14px;
-      backdrop-filter: blur(10px);
-    }
-
-    @keyframes imageZoomIn {
-      from {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .filter-active {
-      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
-      transform: scale(1.05);
-      box-shadow: 0 8px 25px rgba(240, 147, 251, 0.4);
-    }
-
+    .image-viewer-close:hover,.image-viewer-nav:hover {opacity:1;}
+    .image-viewer-close {top:24px;right:30px;}
+    .image-viewer-prev {left:34px;top:50%;transform:translateY(-50%);}
+    .image-viewer-next {right:34px;top:50%;transform:translateY(-50%);}
+    #paymentAmount {font-size:1.14rem;margin-top:1.1rem;font-weight:700;color:var(--gold);}
     @media (max-width: 768px) {
-      .hero-title {
-        font-size: 2.5rem;
-      }
-      .section-title {
-        font-size: 2rem;
-      }
+      .hero-title {font-size:2rem;}
+      .image-gallery {grid-template-columns:repeat(2,1fr);}
+      #viewerImage {max-width:99vw;}
     }
   </style>
-
 </head>
 <body>
-  <div class="bg-animated"></div>
-  <div class="floating-elements"></div>
-  
-  <div class="relative z-10">
-    <!-- Hero Section -->
-    <header class="text-center py-16 relative">
-      <div class="glass-effect mx-auto max-w-4xl rounded-3xl p-8 neon-glow">
-        <h1 class="hero-title mb-4">🔥 FF ID HOUSE 🔥</h1> 
-        <p class="text-xl text-gray-300 font-light">Premium Gaming Accounts • Legendary Collections • Instant Delivery</p>
-        <div class="mt-8 flex justify-center space-x-4">
-          <div class="text-center">
-            <div class="text-2xl font-bold text-yellow-400">500+</div>
-            <div class="text-sm text-gray-400">Happy Customers</div>
-          </div>
-          <div class="text-center">
-            <div class="text-2xl font-bold text-blue-400">24/7</div>
-            <div class="text-sm text-gray-400">Support</div>
-          </div>
-          <div class="text-center">
-            <div class="text-2xl font-bold text-green-400">100%</div>
-            <div class="text-sm text-gray-400">Secure</div>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- Filter Section -->
-    <section class="text-center mt-12 px-4">
-      <h2 class="section-title">Choose Your Budget</h2>
-      <div class="flex justify-center space-x-4 flex-wrap gap-4">
-        <button class="filter-btn premium-btn" data-range="700">Under ₹700</button>
-        <button class="filter-btn premium-btn" data-range="1000">₹700 - ₹1000</button>
-        <button class="filter-btn premium-btn" data-range="9999">Above ₹1000</button>
-      </div>
-    </section>
-
-    <!-- Filtered Products -->
-    <section class="text-center mt-16 px-4">
-      <h2 class="text-2xl font-bold mb-8 text-gray-300">Filtered Collection</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto" id="productGrid"></div>
-    </section>
-
-    <!-- All Products -->
-    <section class="text-center mt-20 px-4">
-      <h2 class="section-title">Complete Collection</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto" id="allIdsSection"></div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="text-center mt-20 py-12 glass-effect">
-      <div class="max-w-4xl mx-auto px-4">
-        <h3 class="text-2xl font-bold mb-4">Premium Gaming Experience</h3>
-        <p class="text-gray-400 mb-6">Join thousands of satisfied customers who trust our premium Free Fire accounts</p>
-        <div class="flex justify-center space-x-6 text-sm text-gray-500">
-          <span>🛡️ Secure Transactions</span>
-          <span>⚡ Instant Delivery</span>
-          <span>🎮 Premium Support</span>
-        </div>
-      </div>
-    </footer>
-  </div>
-
-  <!-- Image Viewer -->
-  <div id="imageViewer" class="image-viewer">
-    <div class="image-viewer-content">
-      <button class="image-viewer-close" onclick="closeImageViewer()">&times;</button>
-      <button class="image-viewer-nav image-viewer-prev" onclick="prevImage()">‹</button>
-      <button class="image-viewer-nav image-viewer-next" onclick="nextImage()">›</button>
-      <img id="viewerImage" src="" alt="Gallery Image">
-      <div class="image-viewer-counter">
-        <span id="imageCounter">1 / 3</span>
-      </div>
+  <!-- Floating 3D shapes -->
+  <div class="floating-shape floating-shape1"></div>
+  <div class="floating-shape floating-shape2"></div>
+  <div class="floating-shape floating-shape3"></div>
+  <div class="floating-shape floating-shape4"></div>
+  <header style="max-width: 720px; margin: 2.2rem auto 1rem; text-align: center; position:relative;z-index:2;">
+    <h1 class="hero-title">🔥 FF GALAXY ID STORE 🔥</h1>
+    <p style="color: #8bcaff;font-weight:600;margin-bottom:2rem;">Pro Legendary Accounts • 3D gallery • Secure Payment</p>
+  </header>
+  <!-- Filter Section -->
+  <section class="text-center" style="max-width: 720px; margin: auto;">
+    <h2 class="section-title">Choose Your Budget</h2>
+    <div class="my-6 flex justify-center gap-6 flex-wrap">
+      <button class="pro-btn filter-btn" data-range="1000">Under ₹1000</button>
+      <button class="pro-btn filter-btn" data-range="1900">₹1000 - ₹2000</button>
+      <button class="pro-btn filter-btn" data-range="9999">Above ₹2000</button>
     </div>
-  </div>
+  </section>
+  <!-- Products Grid -->
+  <section style="max-width: 1080px; margin: auto; padding: 0 1rem;">
+    <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
+  </section>
 
-  <!-- Modal -->
-  <div id="modal" class="fixed inset-0 modal-backdrop flex items-center justify-center z-50 hidden p-4">
-    <div class="modal-content text-white rounded-3xl p-8 max-w-2xl w-full relative">
-      <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
-      
-      <h2 class="text-3xl font-bold mb-2 text-center" id="modalTitle"></h2>
-      <p id="modalPrice" class="mb-6 text-center text-2xl"></p>
-      
+  <!-- Footer -->
+  <footer style="margin: 3.5rem auto 0; max-width: 720px; color:#97eaff; text-align:center;font-weight:600;">
+    <p>© 2025 FF Galaxy ID Store | Pro 3D Platform</p>
+  </footer>
+
+  <!-- Modal: Product Details -->
+  <div id="modal" class="modal-backdrop">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">&times;</button>
+      <h2 id="modalTitle">Elite ID #</h2>
+      <p id="modalPrice">₹0</p>
       <div class="image-gallery" id="modalImages"></div>
-      
-      <div class="flex justify-center space-x-4 mt-8">
-        <button onclick="closeModal()" class="px-6 py-3 bg-gray-600 hover:bg-gray-700 rounded-full transition-all">Cancel</button>
-        <a id="buyLink" href="#" target="_blank" class="px-8 py-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 rounded-full transition-all font-semibold">Purchase Now</a>
+      <div style="display:flex;justify-content:center; gap:1.2rem">
+        <button class="pro-btn" onclick="closeModal()">Back</button>
+        <a id="buyLink" href="#" class="pro-btn" target="_blank">Purchase Now</a>
       </div>
     </div>
+  </div>
+
+  <!-- Modal: Payment Options -->
+  <div id="paymentOptionsModal" class="modal-backdrop">
+    <div class="modal-content" style="max-width: 360px; text-align: center;">
+      <button class="close-btn" onclick="closePaymentOptions()">&times;</button>
+      <h2 class="section-title">Pick Payment Method</h2>
+      <div class="my-3 flex flex-col gap-4">
+        <button class="pro-btn" onclick="showQR('GPay')">GPay</button>
+        <button class="pro-btn" onclick="showQR('PhonePe')">PhonePe</button>
+        <button class="pro-btn" onclick="showQR('Paytm')">Paytm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: QR Payment -->
+  <div id="qrModal" class="modal-backdrop">
+    <div class="modal-content" style="max-width: 360px; text-align: center;">
+      <button class="close-btn" onclick="closeQRModal()">&times;</button>
+      <h2 id="paymentMethodTitle" class="section-title">Pay via GPay</h2>
+      <img id="qrImage" src="https://i.ibb.co/8z1xw6t/qr.png" alt="QR Code" style="width:160px;height:160px;border-radius:1rem;box-shadow:0 7px 24px #97eaff;margin:0 auto;" />
+      <p id="paymentAmount">₹0</p>
+      <button class="pro-btn" style="margin-top:1.2rem;" onclick="alert('Check your email for ID credentials after payment!')">🎁 Reveal ID & Password</button>
+    </div>
+  </div>
+
+  <!-- Image Viewer Overlay -->
+  <div id="imageViewer" class="image-viewer-backdrop">
+    <button class="image-viewer-close" onclick="closeImageViewer()" title="Close">&times;</button>
+    <button class="image-viewer-nav image-viewer-prev" onclick="prevImage()" title="Previous">&#8249;</button>
+    <button class="image-viewer-nav image-viewer-next" onclick="nextImage()" title="Next">&#8250;</button>
+    <img id="viewerImage" src="" alt="Zoomed Image" />
   </div>
 
   <script>
     const products = [
-       { id: 1, price: 500, image: "cover1.jpg", gallery: ["cover1.2.jpg", "cover1.3.jpg", "cover1.4.jpg", "cover1.5.jpg", "cover1.6.jpg", "cover1.7.jpg"], details: { level: 70, kd: "3.8", gunSkins: "70+" } },
-      { id: 2, price: 600, image: "cover2.jpg", gallery: ["cover2.1.jpg", "cover2.2.jpg", "cover2.3.jpg", "cover2.4.jpg", "cover2.5.jpg", "cover2.6.jpg"], details: { level: 70, kd: "4.2", gunSkins: "70+" } },
-      { id: 3, price: 600, image: "cover3.jpg", gallery: ["cover3.1.jpg", "cover3.2.jpg", "cover3.3.jpg", "cover3.4.jpg", "cover3.5.jpg", "cover3.6.jpg"], details: { level: 70, kd: "4.7", gunSkins: "80+" } },
-      { id: 4, price: 800, image: "cover4.jpg", gallery: ["cover4.1.jpg", "cover4.2.jpg", "cover4.3.jpg", "cover4.4.jpg", "cover4.5.jpg", "cover4.6.jpg"], details: { level: 72, kd: "5.1", gunSkins: "80+evo" } },
-      { id: 5, price: 900, image: "cover5.jpg", gallery: ["cover5.1.jpg", "cover5.2.jpg", "cover5.3.jpg", "cover5.4.jpg", "cover5.5.jpg", "cover5.6.jpg"], details: { level: 73, kd: "5.5", gunSkins: "90+veo" } },
-      { id: 6, price: 1000, image: "cover6.jpg", gallery: ["cover6.1.jpg", "cover6.2.jpg", "cover6.3.jpg", "cover6.4.jpg", "cover6.5.jpg", "cover6.6.jpg"], details: { level: 80, kd: "5.9", gunSkins: "100+evo" } },
-      { id: 7, price: 1000, image: "cover7.jpg", gallery: ["cover7.1.jpg", "cover7.2.jpg", "cover7.3.jpg", "cover7.4.jpg", "cover7.5.jpg", "cover7.6.jpg"], details: { level: 80, kd: "6.2", gunSkins: "16+" } },
-      { id: 8, price: 1200, image: "cover8.jpg", gallery: ["cover8.1.jpg", "cover8.2.jpg", "cover8.3.jpg", "cover8.4.jpg", "cover8.5.jpg", "cover8.6.jpg"], details: { level: 71, kd: "6.6", gunSkins: "18+" } },
-      { id: 9, price: 1200, image: "cover9.jpg", gallery: ["cover9.1.jpg", "cover9.2.jpg", "cover9.3.jpg", "cover9.4.jpg", "cover9.5.jpg", "cover9.6.jpg"], details: { level: 76, kd: "7.0", gunSkins: "20+" } },
+      { id: 1, price: 2200, image: "cover1.jpg", gallery: ["cover1.2.jpg", "cover1.3.jpg", "cover1.4.jpg", "cover1.5.jpg", "cover1.6.jpg", "cover1.7.jpg"], details: { level: 70, kd: "3.8", gunSkins: "70+" } },
+      { id: 2, price: 700, image: "cover8.jpg", gallery: ["cover8.jpg", "cover8.2.jpg", "cover8.3.jpg", "cover8.4.jpg", "cover8.5.jpg", "cover8.6.jpg"], details: { level: 71, kd: "6.6", gunSkins: "18+" } },
+      { id: 3, price: 800, image: "cover2.jpg", gallery: ["cover2.jpg", "cover2.2.jpg", "cover2.3.jpg", "cover2.4.jpg", "cover2.5.jpg", "cover2.6.jpg"], details: { level: 70, kd: "4.2", gunSkins: "70+" } },
+      { id: 4, price: 1200, image: "cover3.jpg", gallery: ["cover3.jpg", "cover3.2.jpg", "cover3.3.jpg", "cover3.4.jpg", "cover3.5.jpg", "cover3.6.jpg"], details: { level: 70, kd: "4.7", gunSkins: "80+" } },
+      { id: 5, price: 1000, image: "cover4.jpg", gallery: ["cover4.jpg", "cover4.2.jpg", "cover4.3.jpg", "cover4.4.jpg", "cover4.5.jpg", "cover4.6.jpg"], details: { level: 72, kd: "5.1", gunSkins: "80+evo" } },
+      { id: 6, price: 1500, image: "cover5.jpg", gallery: ["cover5.jpg", "cover5.2.jpg", "cover5.3.jpg", "cover5.4.jpg", "cover5.5.jpg", "cover5.6.jpg"], details: { level: 73, kd: "5.5", gunSkins: "90+veo" } },
+      { id: 7, price: 1500, image: "cover6.jpg", gallery: ["cover6.jpg", "cover6.2.jpg", "cover6.3.jpg", "cover6.4.jpg", "cover6.5.jpg", "cover6.6.jpg"], details: { level: 80, kd: "5.9", gunSkins: "100+evo" } },
+      { id: 8, price: 1800, image: "cover7.jpg", gallery: ["cover7.jpg", "cover7.2.jpg", "cover7.3.jpg", "cover7.4.jpg", "cover7.5.jpg", "cover7.6.jpg"], details: { level: 80, kd: "6.2", gunSkins: "16+" } },
+      { id: 9, price: 2100, image: "cover9.jpg", gallery: ["cover9.jpg", "cover9.2.jpg", "cover9.3.jpg", "cover9.4.jpg", "cover9.5.jpg", "cover9.6.jpg"], details: { level: 76, kd: "7.0", gunSkins: "20+" } },
     ];
-
     const grid = document.getElementById("productGrid");
-    const allSection = document.getElementById("allIdsSection");
-    
-    // Image viewer variables
+    const modal = document.getElementById("modal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalPrice = document.getElementById("modalPrice");
+    const modalImages = document.getElementById("modalImages");
+    const buyLink = document.getElementById("buyLink");
+    const paymentAmount = document.getElementById("paymentAmount");
+
     let currentImages = [];
     let currentImageIndex = 0;
 
-    function renderProducts(maxPrice = 9999) {
+    function renderProducts(maxPrice = 1000) {
       grid.innerHTML = "";
       const filtered = products.filter(p => {
-        if (maxPrice === 700) return p.price <= 700;
-        if (maxPrice === 1000) return p.price > 700 && p.price <= 1000;
-        if (maxPrice === 9999) return p.price > 1000;
+        if (maxPrice === 1000) return p.price <= 1000;
+        if (maxPrice === 1900) return p.price > 1000 && p.price <= 1900;
+        if (maxPrice === 9999) return p.price > 2000;
       });
-      
-      filtered.forEach(product => renderCard(grid, product));
+      filtered.forEach(product => renderCard(product));
+      applyParallax();
     }
-
-    function renderCard(container, product) {
-      const cardHTML = `
-        <div class="premium-card p-6 h-auto cursor-pointer" onclick="buyID(${product.id}, ${product.price})">
-          <div class="relative mb-4">
-            <img src="${product.image}" alt="FF ID ${product.id}" class="w-full h-48 object-cover rounded-lg shadow-lg">
-            <div class="absolute top-2 right-2">
-              <span class="price-tag">₹${product.price}</span>
-            </div>
-          </div>
-          
-          <div class="text-center">
-            <h3 class="text-xl font-bold mb-3 text-white">Elite ID #${product.id}</h3>
-            
-            <div class="flex flex-wrap justify-center gap-2 mb-4">
-              <span class="level-badge">Level ${product.details.level}</span>
-              <span class="kd-badge">K/D ${product.details.kd}</span>
-              <span class="skins-badge">${product.details.gunSkins} Skins</span>
-            </div>
-            
-            <button class="premium-btn w-full">View Details</button>
-          </div>
+    function renderCard(product) {
+      const div = document.createElement('div');
+      div.className = "pro-card";
+      div.innerHTML = `
+        <div class="glow-streak"></div>
+        <img src="${product.image}" alt="FF ID ${product.id}" />
+        <div class="pro-price">₹${product.price}</div>
+        <h3 style="margin-bottom:7px;">Elite ID #${product.id}</h3>
+        <div>
+          <span class="pro-badge pro-lvl">Lvl ${product.details.level}</span>
+          <span class="pro-badge pro-kd">K/D ${product.details.kd}</span>
+          <span class="pro-badge pro-skins">${product.details.gunSkins} Skins</span>
         </div>
+        <button class="pro-btn w-full my-3">View Details</button>
       `;
-      
-      container.innerHTML += cardHTML;
+      div.querySelector('button').addEventListener('click', e => {
+        e.stopPropagation();
+        buyID(product.id, product.price);
+      });
+      div.addEventListener('click', () => buyID(product.id, product.price));
+      grid.appendChild(div);
     }
 
-    function renderAllIDs() {
-      allSection.innerHTML = "";
-      products.forEach(product => renderCard(allSection, product));
+    // 3D Card Parallax (mouse and touch)
+    function applyParallax() {
+      const cards = grid.querySelectorAll('.pro-card');
+      cards.forEach(card => {
+        card.onmousemove = function(e) {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const xc = x / card.offsetWidth * 16 - 8, yc = y / card.offsetHeight * 16 - 8;
+          card.style.transform = `scale(1.06) rotateY(${xc}deg) rotateX(${-yc}deg)`;
+          card.classList.add('animated');
+        };
+        card.onmouseleave = function() {
+          card.style.transform = `scale(1)`;
+          card.classList.remove('animated');
+        };
+        // Touch support for mobile
+        card.ontouchstart = card.ontouchmove = function(e) {
+          if (!e.touches[0]) return;
+          const rect = card.getBoundingClientRect();
+          const x = e.touches[0].clientX - rect.left;
+          const y = e.touches[0].clientY - rect.top;
+          const xc = x / card.offsetWidth * 16 - 8, yc = y / card.offsetHeight * 16 - 8;
+          card.style.transform = `scale(1.06) rotateY(${xc}deg) rotateX(${-yc}deg)`;
+          card.classList.add('animated');
+        };
+        card.ontouchend = function() {
+          card.style.transform = `scale(1)`;
+          card.classList.remove('animated');
+        };
+      });
     }
 
     function buyID(id, price) {
       const product = products.find(p => p.id === id);
-      const modal = document.getElementById("modal");
-      const modalTitle = document.getElementById("modalTitle");
-      const modalPrice = document.getElementById("modalPrice");
-      const modalImages = document.getElementById("modalImages");
-      const buyLink = document.getElementById("buyLink");
-      document.getElementById("paymentAmount").innerText = `Amount: ₹${price}`;
-
-      modalTitle.innerText = `Elite ID #${id}`;
-      modalPrice.innerHTML = `<span class="price-tag">₹${price}</span>`;
-      
+      modalTitle.textContent = `Elite ID #${id}`;
+      modalPrice.textContent = `₹${price}`;
       modalImages.innerHTML = "";
-      product.gallery.forEach((url, index) => {
-        const img = document.createElement("img");
+      currentImages = product.gallery;
+      currentImageIndex = 0;
+      paymentAmount.textContent = `₹${price}`;
+      currentImages.forEach((url, idx) => {
+        const img = document.createElement('img');
         img.src = url;
-        img.alt = `FF ID ${id}`;
+        img.alt = `FF ID ${id} - Image ${idx+1}`;
         img.className = "gallery-img";
-        img.onclick = (e) => {
+        img.addEventListener('click', (e) => {
           e.stopPropagation();
-          openImageViewer(product.gallery, index);
-        };
+          openImageViewer(idx);
+        });
         modalImages.appendChild(img);
       });
-
-      buyLink.href = `text=I%20want%20to%20buy%20Free%20Fire%20ID%20${id}%20for%20₹${price}`;
-      modal.classList.remove("hidden");
+      buyLink.href = `text=I want to buy Free Fire ID ${id} for ₹${price}`;
+      buyLink.onclick = (e) => {
+        e.preventDefault();
+        closeModal();
+        document.getElementById("paymentOptionsModal").classList.add("active");
+        document.body.style.overflow = 'hidden';
+      };
+      modal.classList.add("active");
       document.body.style.overflow = 'hidden';
     }
-
     function closeModal() {
-      document.getElementById("modal").classList.add("hidden");
+      modal.classList.remove("active");
       document.body.style.overflow = 'auto';
     }
-
-    // Image viewer functions
-    function openImageViewer(images, startIndex = 0) {
-      currentImages = images;
-      currentImageIndex = startIndex;
-      
-      const viewer = document.getElementById("imageViewer");
-      const viewerImage = document.getElementById("viewerImage");
-      const counter = document.getElementById("imageCounter");
-      
-      viewerImage.src = currentImages[currentImageIndex];
-      counter.textContent = `${currentImageIndex + 1} / ${currentImages.length}`;
-      
-      viewer.classList.add("active");
+    function closePaymentOptions() {
+      document.getElementById("paymentOptionsModal").classList.remove("active");
+      document.body.style.overflow = 'auto';
+    }
+    function showQR(method) {
+      document.getElementById("paymentOptionsModal").classList.remove("active");
+      document.getElementById("paymentMethodTitle").textContent = `Pay via ${method}`;
+      paymentAmount.textContent = modalPrice.textContent;
+      document.getElementById("qrModal").classList.add("active");
       document.body.style.overflow = 'hidden';
     }
-
-    function closeImageViewer() {
-      const viewer = document.getElementById("imageViewer");
-      viewer.classList.remove("active");
+    function closeQRModal() {
+      document.getElementById("qrModal").classList.remove("active");
       document.body.style.overflow = 'auto';
     }
 
+    // Image Viewer
+    const imageViewer = document.getElementById("imageViewer");
+    const viewerImage = document.getElementById("viewerImage");
+    function openImageViewer(index) {
+      currentImageIndex = index;
+      setViewerImage(currentImages[currentImageIndex]);
+      imageViewer.classList.add("active");
+      document.body.style.overflow = 'hidden';
+    }
+    function closeImageViewer() {
+      imageViewer.classList.remove("active");
+      document.body.style.overflow = 'auto';
+    }
+    function setViewerImage(src) { viewerImage.src = src; }
     function nextImage() {
       currentImageIndex = (currentImageIndex + 1) % currentImages.length;
-      const viewerImage = document.getElementById("viewerImage");
-      const counter = document.getElementById("imageCounter");
-      
-      viewerImage.src = currentImages[currentImageIndex];
-      counter.textContent = `${currentImageIndex + 1} / ${currentImages.length}`;
+      setViewerImage(currentImages[currentImageIndex]);
     }
-
     function prevImage() {
       currentImageIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
-      const viewerImage = document.getElementById("viewerImage");
-      const counter = document.getElementById("imageCounter");
-      
-      viewerImage.src = currentImages[currentImageIndex];
-      counter.textContent = `${currentImageIndex + 1} / ${currentImages.length}`;
+      setViewerImage(currentImages[currentImageIndex]);
     }
+    // Keyboard nav for viewer
+    document.addEventListener('keydown', e => {
+      if (!imageViewer.classList.contains("active")) return;
+      if (e.key === "ArrowRight") nextImage();
+      else if (e.key === "ArrowLeft") prevImage();
+      else if (e.key === "Escape") closeImageViewer();
+    });
 
-    // Filter button functionality
+    // Close by clicking outside
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.getElementById("paymentOptionsModal").addEventListener('click', (e) => {
+      if (e.target === document.getElementById("paymentOptionsModal")) closePaymentOptions();
+    });
+    document.getElementById("qrModal").addEventListener('click', (e) => {
+      if (e.target === document.getElementById("qrModal")) closeQRModal();
+    });
+    imageViewer.addEventListener('click', e => { if (e.target === imageViewer) closeImageViewer(); });
+
     document.querySelectorAll(".filter-btn").forEach(btn => {
       btn.addEventListener("click", () => {
-        // Remove active class from all buttons
         document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("filter-active"));
-        // Add active class to clicked button
         btn.classList.add("filter-active");
-        
         const range = parseInt(btn.getAttribute("data-range"));
         renderProducts(range);
       });
     });
 
-    // Close modal when clicking outside
-    document.getElementById("modal").addEventListener("click", (e) => {
-      if (e.target === e.currentTarget) {
-        closeModal();
-      }
-    });
-
-    // Close image viewer when clicking outside
-    document.getElementById("imageViewer").addEventListener("click", (e) => {
-      if (e.target === e.currentTarget) {
-        closeImageViewer();
-      }
-    });
-
-    // Keyboard navigation for image viewer
-    document.addEventListener("keydown", (e) => {
-      const viewer = document.getElementById("imageViewer");
-      if (viewer.classList.contains("active")) {
-        switch(e.key) {
-          case "Escape":
-            closeImageViewer();
-            break;
-          case "ArrowLeft":
-            prevImage();
-            break;
-          case "ArrowRight":
-            nextImage();
-            break;
-        }
-      }
-    });
-
-    // Initialize
-    renderProducts();
-    renderAllIDs();
-  </script>
-
-
-  <!-- Payment Method Modal -->
-  <div id="paymentOptionsModal" class="fixed inset-0 modal-backdrop flex items-center justify-center z-50 hidden p-4">
-    <div class="modal-content text-white rounded-3xl p-8 max-w-md w-full relative">
-      <button onclick="closePaymentOptions()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
-      <h2 class="text-2xl font-bold mb-6 text-center">Choose Payment Method</h2>
-      <div class="grid grid-cols-1 gap-4">
-        <button onclick="showQR('GPay')" class="premium-btn w-full">GPay</button>
-        <button onclick="showQR('PhonePe')" class="premium-btn w-full">PhonePe</button>
-        <button onclick="showQR('Paytm')" class="premium-btn w-full">Paytm</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- QR Code Modal -->
-  <div id="qrModal" class="fixed inset-0 modal-backdrop flex items-center justify-center z-50 hidden p-4">
-    <div class="modal-content text-white rounded-3xl p-8 max-w-md w-full relative text-center">
-      <button onclick="closeQRModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">&times;</button>
-      <h2 class="text-2xl font-bold mb-4" id="paymentMethodTitle"></h2>
-      <img src="qr.jpg" alt="QR Code" class="w-64 h-64 mx-auto rounded-xl shadow-xl border border-white/10">
-      <p id="paymentAmount" class="text-lg font-semibold text-white-000 mb-4">Amount: ₹0</p>
-      <p class="mt-4 text-gray-300">Scan the QR to pay via your chosen method</p>
-<div id="qrModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 hidden z-50">
-  <div class="bg-white p-6 rounded-2xl shadow-lg w-96 text-center relative">
-    <h3 class="text-xl font-bold mb-4">Scan QR to Pay</h3>
-    <img id="qrImage" src="https://i.ibb.co/8z1xw6t/qr.png" alt="QR Code" class="w-40 h-40 mx-auto mb-4 border-4 border-gray-200 rounded-lg">
-    
-    <!-- Show payment amount -->
-    <p id="paymentAmount" class="text-lg font-semibold text-red-600 mb-4">Amount: ₹0</p>
-
-    <button onclick="closeQRModal()" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">Close</button>
-  </div>
-</div>
-    </div>
-  </div>
-
-  <script>
-    function buyID(id, price) {
-      const product = products.find(p => p.id === id);
-      const modal = document.getElementById("modal");
-      const modalTitle = document.getElementById("modalTitle");
-      const modalPrice = document.getElementById("modalPrice");
-      const modalImages = document.getElementById("modalImages");
-      const buyLink = document.getElementById("buyLink");
-     document.getElementById("paymentAmount").innerText = `Amount: ₹${price}`;
-
-      modalTitle.innerText = `Elite ID #${id}`;
-      modalPrice.innerHTML = `<span class="price-tag">₹${price}</span>`;
-
-      modalImages.innerHTML = "";
-      product.gallery.forEach((url, index) => {
-        const img = document.createElement("img");
-        img.src = url;
-        img.alt = `FF ID ${id}`;
-        img.className = "gallery-img";
-        img.onclick = (e) => {
-          e.stopPropagation();
-          openImageViewer(product.gallery, index);
-        };
-        modalImages.appendChild(img);
-      });
-
-      buyLink.onclick = (e) => {
-        e.preventDefault();
-        closeModal();
-        document.getElementById("paymentOptionsModal").classList.remove("hidden");
-        document.body.style.overflow = 'hidden';
-      };
-
-      modal.classList.remove("hidden");
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closePaymentOptions() {
-      document.getElementById("paymentOptionsModal").classList.add("hidden");
-      document.body.style.overflow = 'auto';
-    }
-
-    function showQR(method) {
-      document.getElementById("paymentOptionsModal").classList.add("hidden");
-      const qrModal = document.getElementById("qrModal");
-      document.getElementById("paymentMethodTitle").innerText = `Pay via ${method}`;
-      qrModal.classList.remove("hidden");
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeQRModal() {
-      document.getElementById("qrModal").classList.add("hidden");
-      document.body.style.overflow = 'auto';
-    }
+    document.querySelector(".filter-btn[data-range='1000']").classList.add("filter-active");
+    renderProducts(1000);
   </script>
 </body>
 </html>
